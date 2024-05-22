@@ -3,6 +3,25 @@ let canvas=   document.querySelector('canvas')
 let ctx=  canvas.getContext('2d')
 let cell=50
 let snekcell=[[0,0]]
+let direction='right'
+
+
+document.addEventListener('keydown',function(e){
+    // console.log(e);
+    if(e.key==='ArrowUp'){
+        direction='up'
+    }
+else if(e.key==='ArrowDown'){
+    direction='down'
+}
+else if(e.key==='ArrowLeft'){
+    direction='left'
+}
+else{
+    direction='right'
+}
+
+})
 
 function draw(){
     ctx.clearRect(0,0,1800,800)
@@ -20,8 +39,24 @@ draw()
 function update(){
  let headX=   snekcell[snekcell.length-1][0]
      let headY=  snekcell[snekcell.length-1][1]
-     let newX=headX+cell
-     let newY=headY
+     let newX
+     let newY
+     if(direction==='up'){
+        newX=headX
+        newY=headY-cell
+     }
+     else if( direction==='left'){
+        newX=headX-cell
+        newY=headY
+     }
+     else if(direction==='down'){
+        newX=headX
+        newY=headY+cell
+     }
+     else{
+        newX=headX+cell
+        newY=headY
+     }
 
      snekcell.push([newX,newY])
      snekcell.shift()
