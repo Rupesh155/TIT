@@ -4,26 +4,39 @@ let ctx=  canvas.getContext('2d')
 let cell=50
 let snekcell=[[0,0]]
 let direction='right'
+let gameOver=false
 
-
+ let id=  setInterval(()=>{
+    draw()
+    update()
+},100)
 document.addEventListener('keydown',function(e){
     // console.log(e);
     if(e.key==='ArrowUp'){
         direction='up'
+       
     }
 else if(e.key==='ArrowDown'){
     direction='down'
+   
 }
 else if(e.key==='ArrowLeft'){
     direction='left'
+   
 }
 else{
     direction='right'
+   
+
 }
 
 })
 
 function draw(){
+    if(gameOver){
+        clearInterval(id)
+        return;
+    }
     ctx.clearRect(0,0,1800,800)
     for(let i of snekcell){
         ctx.fillStyle='red'
@@ -44,18 +57,30 @@ function update(){
      if(direction==='up'){
         newX=headX
         newY=headY-cell
+        if(newY<0){
+            gameOver=true
+        }
      }
      else if( direction==='left'){
         newX=headX-cell
         newY=headY
+        if(newX<0){
+            gameOver=true
+        }
      }
      else if(direction==='down'){
         newX=headX
         newY=headY+cell
+        if(newY===800){
+            gameOver=true
+        }
      }
      else{
         newX=headX+cell
         newY=headY
+        if(newX===1800){
+            gameOver=true
+        }
      }
 
      snekcell.push([newX,newY])
@@ -63,10 +88,7 @@ function update(){
 
 
 }
-setInterval(()=>{
-    draw()
-    update()
-},100)
+
 
 // setInterval(()=>{
 //     console.log('chalt rh');
