@@ -6,10 +6,12 @@ let snekcell=[[0,0]]
 let direction='right'
 let gameOver=false
 
+let foodcell=random()
+
  let id=  setInterval(()=>{
     draw()
     update()
-},100)
+},50)
 document.addEventListener('keydown',function(e){
     // console.log(e);
     if(e.key==='ArrowUp'){
@@ -43,6 +45,8 @@ function draw(){
 
         ctx.fillRect(i[0],i[1],cell,cell)
     }
+    ctx.fillStyle='green'
+    ctx.fillRect(foodcell[0],foodcell[1],cell,cell)
 
 
 }
@@ -84,10 +88,34 @@ function update(){
      }
 
      snekcell.push([newX,newY])
-     snekcell.shift()
+
+
+     if(newX===foodcell[0]   && newY===foodcell[1]){
+        foodcell=random()
+     }
+     else{
+        snekcell.shift()
+
+     }
+
 
 
 }
+
+
+
+function random(){
+
+return [  Math.floor( Math.random()*1750/50)*50   ,
+       Math.floor( Math.random()*750/50)*50 
+]
+
+
+}
+
+
+
+
 
 
 // setInterval(()=>{
@@ -102,3 +130,8 @@ function update(){
 // console.log(arr);
 // arr.shift()
 // console.log(arr);
+
+
+
+
+
