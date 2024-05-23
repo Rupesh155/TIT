@@ -5,6 +5,7 @@ let cell=50
 let snekcell=[[0,0]]
 let direction='right'
 let gameOver=false
+let score=0
 
 let foodcell=random()
 
@@ -37,6 +38,9 @@ else{
 function draw(){
     if(gameOver){
         clearInterval(id)
+        ctx.font='40 sans-sarif'
+        ctx.fillStyle='blue'
+        ctx.fillText(` Game over`   ,200,200)
         return;
     }
     ctx.clearRect(0,0,1800,800)
@@ -47,6 +51,8 @@ function draw(){
     }
     ctx.fillStyle='green'
     ctx.fillRect(foodcell[0],foodcell[1],cell,cell)
+    ctx.font='30px sans-sarif'
+    ctx.fillText(`Score ${score}`, 100,100)
 
 
 }
@@ -92,6 +98,7 @@ function update(){
 
      if(newX===foodcell[0]   && newY===foodcell[1]){
         foodcell=random()
+        score+=1
      }
      else{
         snekcell.shift()
